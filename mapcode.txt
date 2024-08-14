@@ -1,0 +1,56 @@
+```{r message=FALSE, warning=FALSE,echo=FALSE}
+
+library( devtools)
+library(sta3262)
+library(coronavirus)
+library(tidyverse)
+library(magrittr)
+algeria_corona <- coronavirus %>% filter(country == "Algeria")
+countries <- as.data.frame(brazil_new,libya_new,italy_new)
+
+library(ggplot2)
+library(maptools)
+library(tibble)
+library(tidyverse)
+library(ggrepel)
+library(png)
+library(grid)
+library(sp)
+data(wrld_simpl)
+
+p <- ggplot() +
+  geom_polygon(
+    data = wrld_simpl,
+    aes(x = long, y = lat, group = group), fill = " light pink", colour = "black"
+  ) +
+  coord_cartesian(xlim = c(-180, 180), ylim = c(-90, 90)) +
+  scale_x_continuous(breaks = seq(-180, 180, 120)) +
+  scale_y_continuous(breaks = seq(-90, 90, 100))
+
+p +
+  geom_point(
+    data = countries, aes(x = long, y = lat), color = "blue", size
+    = 5
+  )+ geom_text(aes(x=countries$long, y=countries$lat, label=countries$country))
+ 
+```
+
+
+
+
+#### Active cases     
+
+
+```{r, comment=NA,message=FALSE, echo=FALSE}
+
+active_algeria_corona<-  algeria_new%>% pivot_wider(names_from = type, values_from = cases)
+active_algeria_corona
+
+acAl_corona1 <-active_algeria_corona[!is.na(active_algeria_corona$recovered),]
+acAl_corona1
+
+active_new <- acAl_corona1 %>% mutate(active = cumsum(confirmed)-(cumsum(death)+cumsum(recovered)))
+active_new
+
+ggplot(active_new,aes(x=date, y=cases, colour=type)) + geom_path(size=1) + labs(title="Algeria  Daily Covid-19  Active cases")
+```

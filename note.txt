@@ -1,0 +1,183 @@
+head  
+    date province country     lat      long      type cases
+1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
+2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0
+3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0
+4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0
+5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0
+6 2020-01-27  Alberta  Canada 53.9333 -116.5765 confirmed     0
+
+tail
+            date province  country       lat     long      type cases
+498127 2021-09-13     <NA> Zimbabwe -19.01544 29.15486 recovered    NA
+498128 2021-09-14     <NA> Zimbabwe -19.01544 29.15486 recovered    NA
+498129 2021-09-15     <NA> Zimbabwe -19.01544 29.15486 recovered    NA
+498130 2021-09-16     <NA> Zimbabwe -19.01544 29.15486 recovered    NA
+498131 2021-09-17     <NA> Zimbabwe -19.01544 29.15486 recovered    NA
+498132 2021-09-18     <NA> Zimbabwe -19.01544 29.15486 recovered    NA
+
+[1] "Algeria"
+> # i got Algeria.
+
+coronavirus {coronavirus}	R Documentation
+The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset
+Description
+Daily summary of the Coronavirus (COVID-19) cases by state/province.
+
+Usage
+coronavirus
+Format
+A data frame with 7 variables.
+
+date
+Date in YYYY-MM-DD format.
+
+province
+Name of province/state, for countries where data is provided split across multiple provinces/states.
+
+country
+Name of country/region.
+
+lat
+Latitude of center of geographic region, defined as either country or, if available, province.
+
+long
+Longitude of center of geographic region, defined as either country or, if available, province.
+
+type
+An indicator for the type of cases (confirmed, death, recovered).
+
+cases
+Number of cases on given date.
+
+Details
+The dataset contains the daily summary of Coronavirus cases (confirmed, death, and recovered), by state/province.
+
+Source
+Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus website.
+
+Examples
+data(coronavirus)
+
+require(dplyr)
+
+# Get top confirmed cases by state
+coronavirus %>%
+  filter(type == "confirmed") %>%
+  group_by(country) %>%
+  summarise(total = sum(cases)) %>%
+  arrange(-total) %>%
+  head(20)
+
+# Get the number of recovered cases in China by province
+coronavirus %>%
+  filter(type == "recovered", country == "China") %>%
+  group_by(province) %>%
+  summarise(total = sum(cases)) %>%
+  arrange(-total)
+
+[Package coronavirus version 0.3.30 Index]
+
+
+
+ unique(coronavirus$country)
+  [1] "Canada"                           "United Kingdom"                  
+  [3] "China"                            "Netherlands"                     
+  [5] "Australia"                        "New Zealand"                     
+  [7] "Denmark"                          "France"                          
+  [9] "Afghanistan"                      "Albania"                         
+ [11] "Algeria"                          "Andorra"                         
+ [13] "Angola"                           "Antigua and Barbuda"             
+ [15] "Argentina"                        "Armenia"                         
+ [17] "Austria"                          "Azerbaijan"                      
+ [19] "Bahamas"                          "Bahrain"                         
+ [21] "Bangladesh"                       "Barbados"                        
+ [23] "Belarus"                          "Belgium"                         
+ [25] "Belize"                           "Benin"                           
+ [27] "Bhutan"                           "Bolivia"                         
+ [29] "Bosnia and Herzegovina"           "Botswana"                        
+ [31] "Brazil"                           "Brunei"                          
+ [33] "Bulgaria"                         "Burkina Faso"                    
+ [35] "Burma"                            "Burundi"                         
+ [37] "Cabo Verde"                       "Cambodia"                        
+ [39] "Cameroon"                         "Central African Republic"        
+ [41] "Chad"                             "Chile"                           
+ [43] "Colombia"                         "Comoros"                         
+ [45] "Congo (Brazzaville)"              "Congo (Kinshasa)"                
+ [47] "Costa Rica"                       "Cote d'Ivoire"                   
+ [49] "Croatia"                          "Cuba"                            
+ [51] "Cyprus"                           "Czechia"                         
+ [53] "Diamond Princess"                 "Djibouti"                        
+ [55] "Dominica"                         "Dominican Republic"              
+ [57] "Ecuador"                          "Egypt"                           
+ [59] "El Salvador"                      "Equatorial Guinea"               
+ [61] "Eritrea"                          "Estonia"                         
+ [63] "Eswatini"                         "Ethiopia"                        
+ [65] "Fiji"                             "Finland"                         
+ [67] "Gabon"                            "Gambia"                          
+ [69] "Georgia"                          "Germany"                         
+ [71] "Ghana"                            "Greece"                          
+ [73] "Grenada"                          "Guatemala"                       
+ [75] "Guinea"                           "Guinea-Bissau"                   
+ [77] "Guyana"                           "Haiti"                           
+ [79] "Holy See"                         "Honduras"                        
+ [81] "Hungary"                          "Iceland"                         
+ [83] "India"                            "Indonesia"                       
+ [85] "Iran"                             "Iraq"                            
+ [87] "Ireland"                          "Israel"                          
+ [89] "Italy"                            "Jamaica"                         
+ [91] "Japan"                            "Jordan"                          
+ [93] "Kazakhstan"                       "Kenya"                           
+ [95] "Kiribati"                         "Korea, South"                    
+ [97] "Kosovo"                           "Kuwait"                          
+ [99] "Kyrgyzstan"                       "Laos"                            
+[101] "Latvia"                           "Lebanon"                         
+[103] "Lesotho"                          "Liberia"                         
+[105] "Libya"                            "Liechtenstein"                   
+[107] "Lithuania"                        "Luxembourg"                      
+[109] "Madagascar"                       "Malawi"                          
+[111] "Malaysia"                         "Maldives"                        
+[113] "Mali"                             "Malta"                           
+[115] "Marshall Islands"                 "Mauritania"                      
+[117] "Mauritius"                        "Mexico"                          
+[119] "Micronesia"                       "Moldova"                         
+[121] "Monaco"                           "Mongolia"                        
+[123] "Montenegro"                       "Morocco"                         
+[125] "Mozambique"                       "MS Zaandam"                      
+[127] "Namibia"                          "Nepal"                           
+[129] "Nicaragua"                        "Niger"                           
+[131] "Nigeria"                          "North Macedonia"                 
+[133] "Norway"                           "Oman"                            
+[135] "Pakistan"                         "Palau"                           
+[137] "Panama"                           "Papua New Guinea"                
+[139] "Paraguay"                         "Peru"                            
+[141] "Philippines"                      "Poland"                          
+[143] "Portugal"                         "Qatar"                           
+[145] "Romania"                          "Russia"                          
+[147] "Rwanda"                           "Saint Kitts and Nevis"           
+[149] "Saint Lucia"                      "Saint Vincent and the Grenadines"
+[151] "Samoa"                            "San Marino"                      
+[153] "Sao Tome and Principe"            "Saudi Arabia"                    
+[155] "Senegal"                          "Serbia"                          
+[157] "Seychelles"                       "Sierra Leone"                    
+[159] "Singapore"                        "Slovakia"                        
+[161] "Slovenia"                         "Solomon Islands"                 
+[163] "Somalia"                          "South Africa"                    
+[165] "South Sudan"                      "Spain"                           
+[167] "Sri Lanka"                        "Sudan"                           
+[169] "Summer Olympics 2020"             "Suriname"                        
+[171] "Sweden"                           "Switzerland"                     
+[173] "Syria"                            "Taiwan*"                         
+[175] "Tajikistan"                       "Tanzania"                        
+[177] "Thailand"                         "Timor-Leste"                     
+[179] "Togo"                             "Trinidad and Tobago"             
+[181] "Tunisia"                          "Turkey"                          
+[183] "Uganda"                           "Ukraine"                         
+[185] "United Arab Emirates"             "Uruguay"                         
+[187] "US"                               "Uzbekistan"                      
+[189] "Vanuatu"                          "Venezuela"                       
+[191] "Vietnam"                          "West Bank and Gaza"              
+[193] "Yemen"                            "Zambia"                          
+[195] "Zimbabwe" 
+
+
